@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projelerim</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Projelerim</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Anasayfa</a></li>
+                <li><a href="projeler.html">Projelerim</a></li>
+                <li><a href="iletisim.html">İletişim</a></li>
+                <li><a href="anket.html">Anket</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Projelerim</h2>
+            <button class="view-btn" onclick="showMedia()">¯\_(ツ)_/¯</button>
+            <div id="media-container" style="display:none;">
+                <video controls>
+                    <source src="a few.mp4" type="video/mp4">
+                    Tarayıcınız video etiketini desteklemiyor.
+                </video>
+            </div>
+        </section>
+    </main>
+
+
+    <script>
+        function showMedia() {
+            document.getElementById('media-container').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

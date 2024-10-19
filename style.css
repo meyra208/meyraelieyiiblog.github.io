@@ -1,0 +1,171 @@
+/* Genel ayarlar */
+body {
+    font-family: Arial, ;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+    background-image: url('eeee.jpg'); /* Arka plan resmi */
+    background-size: cover; /* Resmi tüm alanı kaplayacak şekilde ayarla */
+    background-position: center; /* Resmi merkezle */
+    background-attachment: fixed; /* Arka plan kaydırılmayacak şekilde sabitle */
+    color: #000000;
+}
+
+/* Header ayarları */
+header {
+    background-color: hsla(174, 55%, 19%, 0.776);
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    box-shadow: 0 4px 8px rgb(43, 176, 209);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5em;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: fixed;
+    top: 100px;
+    left: 0;
+    margin: 0;
+    background-color: hsl(158, 79%, 15%);
+    height: 100%;
+    width: 200px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+nav ul li {
+    margin: 0;
+}
+
+nav ul li a {
+    display: block;
+    padding: 15px;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+nav ul li a:hover {
+    background-color: #555;
+    color: #ff6347;
+}
+
+main {
+    padding: 120px 40px;
+    max-width: 1000px;
+    margin: 0 auto;
+    margin-left: 220px; /* Boşluk bırakıldı */
+}
+
+h2 {
+    border-bottom: 2px solid #4CAF50;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.view-btn {
+    background-color: #005526;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.view-btn:hover {
+    background-color: #004f32;
+    transform: scale(1.1);
+}
+
+#image-container img {
+    margin-top: 20px;
+    width: 100%;
+    max-width: 600px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.gallery-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.gallery-item {
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+.gallery-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+footer {
+    background-color: #96b5b6;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    box-shadow: 0 -4px 8px rgb(13, 110, 33);
+}
+
+/* Medya sorguları ile mobil uyumluluk */
+@media (max-width: 768px) {
+    nav ul {
+        position: static;
+        height: auto;
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-around;
+        box-shadow: none;
+    }
+
+    main {
+        margin-left: 0;
+        padding: 80px 20px;
+    }
+
+    header h1 {
+        font-size: 1.8em;
+    }
+
+    .gallery {
+        grid-template-columns: 1fr;
+    }
+
+    .gallery-item img {
+        max-width: 100%;
+    }
+}

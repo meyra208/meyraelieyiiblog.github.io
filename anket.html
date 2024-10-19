@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anket Sayfası</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Anket Sayfası</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Anasayfa</a></li>
+                <li><a href="projeler.html">Projelerim</a></li>
+                <li><a href="iletisim.html">İletişim</a></li>
+                <li><a href="anket.html">Anket</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h2>Lütfen Anket Seçin</h2>
+        <button class="view-btn" onclick="showSurvey1()">Sorular</button>
+        <div id="survey-container"></div>
+    </main>
+    <script>
+        function showSurvey1() {
+            document.getElementById('survey-container').innerHTML = `
+                <h2>Bilgi Testi</h2>
+                <form id="survey1" action="submit_survey1.php" method="post" onsubmit="return calculateResults(event)">
+                    <label for="name">Adınız ve Soyadınız:</label>
+                    <input type="text" id="name" name="name" required><br><br>
+
+                    <label>1.Windows, MacOS, Linux işletim sistemlerinden kaç tanesini biliyorsunuz?</label><br>
+                    <input type="radio" name="os" value="Windows">0<br>
+                    <input type="radio" name="os" value="MacOS"> 1<br>
+                    <input type="radio" name="os" value="Linux"> 2<br>
+                    <input type="radio" name="os" value="Diğer"> 3<br><br>
+
+                    <label>2. Programlama dili biliyor musunuz?</label><br>
+                    <input type="radio" name="coding" value="Evet"> Evet<br>
+                    <input type="radio" name="coding" value="Hayır"> Hayır<br><br>
+
+                    <label>3. Hangi seviyede bilgisayar donanım bilgisine sahipsiniz?</label><br>
+                    <input type="radio" name="hardware" value="Başlangıç"> Başlangıç<br>
+                    <input type="radio" name="hardware" value="Orta"> Orta<br>
+                    <input type="radio" name="hardware" value="İleri"> İleri<br><br>
+
+                    <label>4. Word,excel gibi programları kullanmayı biliyor musunuz?</label><br>
+                    <input type="radio" name="security" value="Evet"> Evet<br>
+                    <input type="radio" name="security" value="Hayır"> Hayır<br><br>
+
+                    <label>5. Hangi seviyede yazılım bilgisine sahipsiniz?</label><br>
+                    <input type="radio" name="software" value="Başlangıç"> Başlangıç<br>
+                    <input type="radio" name="software" value="Orta"> Orta<br>
+                    <input type="radio" name="software" value="İleri"> İleri<br><br>
+
+                    <label>6. Bilgisayar ağları hakkında bilgi seviyeniz nedir?</label><br>
+                    <input type="radio" name="networking" value="Başlangıç"> Başlangıç<br>
+                    <input type="radio" name="networking" value="Orta"> Orta<br>
+                    <input type="radio" name="networking" value="İleri"> İleri<br><br>
+
+                    <label>7. Veri analizi ve veri tabanları konusunda bilgi sahibi misiniz?</label><br>
+                    <input type="radio" name="data" value="Evet"> Evet<br>
+                    <input type="radio" name="data" value="Hayır"> Hayır<br><br>
+
+                    <label for="feedback">Öneri ve Görüşlerinizi e-postaya eklemeyi unutmayınızzz:</label><br>
+            
+                    <input type="submit" value="Gönder" class="submit-btn">
+                </form>
+                <div id="survey1-result"></div>
+            `;
+
+            document.getElementById('survey1').onsubmit = function (event) {
+                event.preventDefault();
+                const formData = new FormData(event.target);
+                let score = 0;
+
+                if (formData.get('os') !== null) score += 10;
+                if (formData.get('coding') === 'Evet') score += 20;
+                if (formData.get('hardware') === 'Orta') score += 20;
+                if (formData.get('hardware') === 'İleri') score += 30;
+                if (formData.get('security') === 'Evet') score += 20;
+                if (formData.get('software') === 'Orta') score += 20;
+                if (formData.get('software') === 'İleri') score += 30;
+                if (formData.get('networking') === 'Orta') score += 20;
+                if (formData.get('networking') === 'İleri') score += 30;
+                if (formData.get('data') === 'Evet') score += 20;
+
+                let level = '';
+                if (score >= 180) level = 'Uzman';
+                else if (score >= 120) level = 'İleri Düzey';
+                else if (score >= 60) level = 'Orta Düzey';
+                else level = 'Başlangıç Düzeyi';
+
+                document.getElementById('survey1-result').innerHTML = `
+                    <h3>Bilgisayar Bilgi Seviyeniz: ${level}</h3>
+                    <p>Aldığınız Puan: ${score}</p>
+                    <p>Öneri: ${getAdvice(level)}</p>
+                `;
+
+                // E-posta gönderme
+                const email = 'meyra67e@gmail.com';
+                const subject = 'Bilgisayar Bilgi Seviyesi Anket Sonuçları';
+                const body = `Bilgisayar Bilgi Seviyeniz: ${level}%0D%0AAldığınız Puan: ${score}%0D%0AÖneri: ${getAdvice(level)} SİZİN GÖRÜŞLERİNİZ NELERDİR(LÜTFEN 1 CÜMLE OLSA DAHİ BELİRTİN Kİ KENDİMİ GELİŞTİREBİLEYİM, METNİN DEVAMINA EKLEYEBİLİRSİNİZ. BURAYA KADAR GELDİĞİNİZ İÇİN TEŞEKKÜR EDERİM <3): `;
+                window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+            };
+
+            function getAdvice(level) {
+                switch (level) {
+                    case 'Başlangıç Düzeyi':
+                        return 'Temel bilgisayar kurslarına katılarak bilgi seviyenizi artırabilirsiniz.';
+                    case 'Orta Düzey':
+                        return 'Bilgisayar bilginizi daha da geliştirmek için ileri seviye eğitimlere katılabilirsiniz.';
+                    case 'İleri Düzey':
+                        return 'Bilgilerinizi pekiştirip yeni teknolojilere odaklanabilirsiniz.';
+                    case 'Uzman':
+                        return 'Uzmanlığınızı başkalarına öğreterek paylaşabilir ve projelerde yer alabilirsiniz.';
+                    default:
+                        return '';
+                }
+            }
+        }
+
+    </script>
+</body>
+</html>
